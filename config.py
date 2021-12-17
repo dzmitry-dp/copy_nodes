@@ -1,0 +1,3 @@
+DASHBOARD_GROUP_NAME = "first room"
+DASHBOARD_TAB_NAME = "Butcher"
+
