@@ -2,14 +2,14 @@ import json
 
 
 def get_json_data(config):
-    print('Project:', config.DASHBOARD_PROJECT_NAME)
-    print('Group:', config.DASHBOARD_GROUP_NAME)
-    print('Hints_1', config.HINTS_1)
-    print('Hints_2', config.HINTS_2)
+    # print('Project:', config.DASHBOARD_PROJECT_NAME)
+    # print('Group:', config.DASHBOARD_GROUP_NAME)
+    # print('Hints_1', config.HINTS_1)
+    # print('Hints_2', config.HINTS_2)
 
     "В результате работы этой функции получаю json, который  могу импортировать в node-red"
 
-    from template import Nodes, ConfigNodes
+    from template import Nodes#, ConfigNodes
         
     result_nodes_json_list = []
     id_list = [] # список id нод link out, которые пойдут на ноду "python3 /media/pi/MP3/kill_talk.py"
@@ -44,13 +44,13 @@ def get_json_data(config):
     json_data_in_file.append(nodes.kill_talk)
     
     # добавляем ноды с настройками проекта
-    node_red_configurations_in_json = ConfigNodes(config=config)
-    json_data_in_file.append(node_red_configurations_in_json.project)
-    json_data_in_file.append(node_red_configurations_in_json.group)
+    # node_red_configurations_in_json = ConfigNodes(config=config)
+    # json_data_in_file.append(node_red_configurations_in_json.project)
+    # json_data_in_file.append(node_red_configurations_in_json.group)
 
     return json_data_in_file
 
-def get_config_data():
+def get_data_from_config_txt():
     with open('config.txt', 'r') as file:
         lines = file.readlines()
 
@@ -77,13 +77,13 @@ def get_config_data():
             if i > 0:
                 comand_line = lines[index_list[index_list.index(i)-1]:i]
 
-                if 'Project name\n' in comand_line:
-                    project = _clear(lines[i:index_list[index_list.index(i)+1]])[0].replace('\n', '')
-                    continue
-                elif 'Group\n' in comand_line:
-                    group = _clear(lines[i:index_list[index_list.index(i)+1]])[0].replace('\n', '')
-                    continue
-                elif 'Hints\n' in comand_line:
+                # if 'Project name\n' in comand_line:
+                #     project = _clear(lines[i:index_list[index_list.index(i)+1]])[0].replace('\n', '')
+                #     continue
+                # if 'Group\n' in comand_line:
+                #     group = _clear(lines[i:index_list[index_list.index(i)+1]])[0].replace('\n', '')
+                #     continue
+                if 'Hints\n' in comand_line:
                     hints_1 = []
                     for item in _clear(lines[i:index_list[index_list.index(i)+1]])[::2]:
                         hints_1.append(item.replace('\n', ''))
@@ -91,9 +91,8 @@ def get_config_data():
                     hints_2 = []
                     for item in _clear(lines[i:index_list[index_list.index(i)+1]])[1::2]:
                         hints_2.append(item.replace('\n', ''))
-                    continue
-
-    return project, group, hints_1, hints_2
+                        
+                    return hints_1, hints_2
 
 # формируем точку входа
 if __name__ == "__main__":
@@ -106,9 +105,9 @@ if __name__ == "__main__":
             json.dump(json_data_in_file, write_file)
 
         else:
-            project, group, hints_1, hints_2 = get_config_data()
-            cnf.DASHBOARD_PROJECT_NAME = project
-            cnf.DASHBOARD_GROUP_NAME = group
+            hints_1, hints_2 = get_data_from_config_txt()
+            # cnf.DASHBOARD_PROJECT_NAME = project
+            # cnf.DASHBOARD_GROUP_NAME = group
             cnf.HINTS_1 = hints_1
             cnf.HINTS_2 = hints_2
             json_data_in_file = get_json_data(config=cnf)

@@ -1,14 +1,4 @@
 ###
-Project name
-###
-Butcher
-
-###
-Group
-###
-first room
-
-###
 Hints
 ###
 Main logo 1
