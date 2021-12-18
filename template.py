@@ -1,12 +1,9 @@
-import config
-
-
 class NodeTemplate:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, hints_1: list, hints_2: list) -> None:
         self._name_hint_1 = name # элемент из списка config.HINTS_1
         # Из второго списка берем имя которое соответствует порядковому номеру первого списка
-        self.__index = config.HINTS_1.index(self._name_hint_1) # порядковый номер
-        self._name_hint_2 = config.HINTS_2[self.__index] # такой же по счету элемент, как и в 1м списке
+        self.__index = hints_1.index(self._name_hint_1) # порядковый номер
+        self._name_hint_2 = hints_2[self.__index] # такой же по счету элемент, как и в 1м списке
 
         self.set_btn_text = {
                                 "id": f"2a90beba.57d{self.__index}",
@@ -248,8 +245,9 @@ class NodeTemplate:
 
 
 class Nodes(NodeTemplate):
-    def __init__(self, name: str) -> None:
-        super().__init__(name)
+    def __init__(self, name: str, config) -> None:
+        super().__init__(name, config.HINTS_1, config.HINTS_2)
+        self.config = config
         self._btn = None
         self._hints = None
         self._in_kill_python3 = None
@@ -322,7 +320,7 @@ class Nodes(NodeTemplate):
 
 
 class ConfigNodes():
-    def __init__(self) -> None:
+    def __init__(self, config) -> None:
         self._project = None
         self._group = None
 
