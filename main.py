@@ -10,7 +10,7 @@ def get_hints_json_data(config):
 
     "В результате работы этой функции получаю json, который  могу импортировать в node-red"
 
-    from scripts.hints import Hints#, ConfigNodes
+    from scripts.hints import Hints
         
     result_nodes_json_list = []
     id_list = [] # список id нод link out, которые пойдут на ноду "python3 /media/pi/MP3/kill_talk.py"
@@ -42,11 +42,6 @@ def get_hints_json_data(config):
     nodes.input_python_kill['links'] = id_in_python_kill # записываю все id нод, которые ссылаются на input ноду, которая стартует код python3 
     json_data_in_file.append(nodes.input_python_kill)
     json_data_in_file.append(nodes.kill_talk)
-    
-    # добавляем ноды с настройками проекта
-    # node_red_configurations_in_json = ConfigNodes(config=config)
-    # json_data_in_file.append(node_red_configurations_in_json.project)
-    # json_data_in_file.append(node_red_configurations_in_json.group)
 
     return json_data_in_file
 
