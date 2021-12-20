@@ -1,11 +1,23 @@
 class NodeTemplate:
+    def _link_in(self, __index):
+        return {
+                "id": f"3ca965f.4ce{__index}9a",
+                "type": "link in",
+                "z": "8389bbf5.5d9f78",
+                "name": "",
+                "links": [],
+                "x": 35,
+                "y": 380 + 200*__index,
+                "wires": []
+            }
+
     def _set_btn_text(self, __index: int, _name_hint_1):
         return {
                     "id": f"2a90beba.57d{__index}",
                     "type": "function",
                     "z": "8389bbf5.5d9f78",
                     "name": "set_btn_text",
-                    "func": "var start_flag = global.get('start_flag')||0;\nvar if_lang_code = global.get('if_lang_code')||1;\n\nif (if_lang_code == 1){\n    msg.lang_label = \"set_name\";\n}\nelse{\n    msg.lang_label = \"set_name_FR\";\n}\nreturn msg;".replace('set_name', str(_name_hint_1)),
+                    "func": "var start_flag = global.get('start_flag')||0;\nvar if_lang_code = global.get('if_lang_code')||1;\n\nif (if_lang_code == 1){\n    msg.lang_label = \"set_name\";\n}\nelse{\n    msg.lang_label = \"set_name_LOC\";\n}\nreturn msg;".replace('set_name', str(_name_hint_1)),
                     "outputs": 1,
                     "noerr": 0,
                     "x": 150,
@@ -214,8 +226,8 @@ class NodeTemplate:
                 ]
             }
 
-        # остальные ноды
-    
+    # остальные ноды
+
     def _kill_python3_(self):
         return {
                 "id": "f68cbe37b16123a",

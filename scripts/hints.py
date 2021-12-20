@@ -20,10 +20,13 @@ class Hints(NodeTemplate):
     @property
     def btn(self):
         if self._btn == None:
+            _link_in = self._link_in(self.__index)
             set_btn_text = self._set_btn_text(self.__index, self._name_hint_1)
+            _link_in['wires'].append([set_btn_text['id']])
             main_logo = self._main_logo(self.__index, self._name_hint_1)
             set_btn_text['wires'].append([main_logo['id']])
             self._btn = [
+                _link_in,
                 set_btn_text,
                 main_logo,
                 ]
