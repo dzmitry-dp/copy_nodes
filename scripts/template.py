@@ -243,6 +243,178 @@ class NodeTemplate:
                             "wires": []
                         }
 
+        #debug console
+        self.inject = {
+                        "id": "9c687140.2d607",
+                        "type": "inject",
+                        "z": "f7c5b52b.d0b038",
+                        "name": "",
+                        "repeat": "5",
+                        "crontab": "",
+                        "once": True,
+                        "onceDelay": "3.5",
+                        "topic": "",
+                        "payload": "30",
+                        "payloadType": "str",
+                        "x": 350,
+                        "y": 1120,
+                        "wires": [
+                            [
+                                "56c91654.ef91c8"
+                            ]
+                        ]
+                    }
+
+        self.random_delay = {
+                        "id": "56c91654.ef91c8",
+                        "type": "delay",
+                        "z": "f7c5b52b.d0b038",
+                        "name": "",
+                        "pauseType": "random",
+                        "timeout": "300",
+                        "timeoutUnits": "milliseconds",
+                        "rate": "1",
+                        "nbRateUnits": "1",
+                        "rateUnits": "second",
+                        "randomFirst": "300",
+                        "randomLast": "700",
+                        "randomUnits": "milliseconds",
+                        "drop": False,
+                        "outputs": 1,
+                        "x": 600,
+                        "y": 1120,
+                        "wires": [
+                            [
+                                "cd6524b7.f117a8",
+                                "3b978cd5.fa4c44"
+                            ]
+                        ]
+                    }
+
+        self.mqtt_out = {
+                        "id": "cd6524b7.f117a8",
+                        "type": "mqtt out",
+                        "z": "f7c5b52b.d0b038",
+                        "name": "",
+                        "topic": "/main_sub",
+                        "qos": "0",
+                        "retain": "false",
+                        "broker": "d8344fb8.abc2d",
+                        "x": 910,
+                        "y": 1120,
+                        "wires": []
+                    }
+
+        self.mqtt_in = {
+                    "id": "95eb414.1442ec",
+                    "type": "mqtt in",
+                    "z": "f7c5b52b.d0b038",
+                    "name": "",
+                    "topic": "/main_pub",
+                    "qos": "0",
+                    "datatype": "auto",
+                    "broker": "d8344fb8.abc2d",
+                    "inputs": 0,
+                    "x": 340,
+                    "y": 1220,
+                    "wires": [
+                        [
+                            "d164a84f.5b9208"
+                        ]
+                    ]
+                }
+
+        self.delay_300ms = {
+                    "id": "d164a84f.5b9208",
+                    "type": "delay",
+                    "z": "f7c5b52b.d0b038",
+                    "name": "",
+                    "pauseType": "delay",
+                    "timeout": "300",
+                    "timeoutUnits": "milliseconds",
+                    "rate": "1",
+                    "nbRateUnits": "1",
+                    "rateUnits": "second",
+                    "randomFirst": "1",
+                    "randomLast": "5",
+                    "randomUnits": "seconds",
+                    "drop": False,
+                    "outputs": 1,
+                    "x": 690,
+                    "y": 1220,
+                    "wires": [
+                        [
+                            "3b978cd5.fa4c44"
+                        ]
+                    ]
+                }
+
+        self.check_link = {
+                    "id": "3b978cd5.fa4c44",
+                    "type": "function",
+                    "z": "f7c5b52b.d0b038",
+                    "name": "check_link_m",
+                    "func": "var link_counter_m = flow.get('link_counter_m') || 0;\n\nif(msg.payload == \"30\")\n{\n    link_counter_m = (link_counter_m < 2) ? link_counter_m + 1 : 2;\n}\n\nif(msg.payload == \"31\")\n{\n    link_counter_m = 0;\n}\n\nflow.set('link_counter_m', link_counter_m);\nmsg.link = link_counter_m;\n\nif(link_counter_m <= 1)\n{\n    msg.payload = true;\n    msg.text = \"on-line\";\n    return msg;\n}\nelse\n{\n    msg.payload = false;\n    msg.text = \"off-line\";\n    return msg;\n}\nreturn msg;",
+                    "outputs": 1,
+                    "noerr": 0,
+                    "x": 920,
+                    "y": 1220,
+                    "wires": [
+                        [
+                            "ad2209c.aa751f8",
+                            "4e867014.108b2",
+                            "ce8f75e1.1addc8"
+                        ]
+                    ]
+                }
+
+        self.link_state = {
+                    "id": "ad2209c.aa751f8",
+                    "type": "ui_text",
+                    "z": "f7c5b52b.d0b038",
+                    "group": "e6f2d0f6.b5846",
+                    "order": 2,
+                    "width": 7,
+                    "height": 1,
+                    "name": "link state main",
+                    "label": "main: ",
+                    "format": "msg.text",
+                    "layout": "row-right",
+                    "x": 1140,
+                    "y": 1200,
+                    "wires": []
+                }
+
+        self.swith = {
+                    "id": "4e867014.108b2",
+                    "type": "ui_switch",
+                    "z": "f7c5b52b.d0b038",
+                    "name": "",
+                    "label": "link m",
+                    "tooltip": "",
+                    "group": "e6f2d0f6.b5846",
+                    "order": 3,
+                    "width": 1,
+                    "height": 1,
+                    "passthru": False,
+                    "decouple": "true",
+                    "topic": "",
+                    "style": "",
+                    "onvalue": "true",
+                    "onvalueType": "bool",
+                    "onicon": "fa-link fa-2x",
+                    "oncolor": "olivedrab",
+                    "offvalue": "false",
+                    "offvalueType": "bool",
+                    "officon": "fa-unlink fa-2x",
+                    "offcolor": "orangered",
+                    "x": 1110,
+                    "y": 1240,
+                    "wires": [
+                        []
+                    ]
+                }
+ 
 
 class ConfigNodes:
     "Конфигурационный объект"
@@ -272,40 +444,28 @@ class ConfigNodes:
                     "collapse": True
                 }
 
-        self._kill_python3 = {
-                            "id": f"f68cbe37b16932a",
-                            "type": "exec",
-                            "z": "27aa475694f99417",
-                            "command": "python3 /media/pi/MP3/kill_talk.py",
-                            "addpay": True,
-                            "append": "",
-                            "useSpawn": "false",
-                            "timer": "",
-                            "oldrc": False,
-                            "name": "",
-                            "x": 860,
-                            "y": 60,
-                            "wires": [
-                                [],
-                                [],
-                                []
-                            ]
-                        }
-        
-        self._in_kill_python3 = {
-                            "id": f"ce55df736a4941eab",
-                            "type": "link in",
-                            "z": "27aa475694f99417",
-                            "name": "kill_omx_hint",
-                            "links": [],
-                            "x": 635,
-                            "y": 60,
-                            "wires": [
-                                [
-                                    "f68cbe37b1646f97"
-                                ]
-                            ]
-                        }
+        self._mqtt_global = {
+                    "id": "d8344fb8.abc2d",
+                    "type": "mqtt-broker",
+                    "name": "",
+                    "broker": "192.168.0.70",
+                    "port": "1883",
+                    "clientid": "web_ui_butcher",
+                    "usetls": false,
+                    "compatmode": false,
+                    "keepalive": "60",
+                    "cleansession": true,
+                    "birthTopic": "",
+                    "birthQos": "0",
+                    "birthPayload": "",
+                    "closeTopic": "",
+                    "closeQos": "0",
+                    "closePayload": "",
+                    "willTopic": "",
+                    "willQos": "0",
+                    "willPayload": ""
+                }
+
 
     @property
     def project(self):

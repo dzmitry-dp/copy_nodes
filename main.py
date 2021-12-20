@@ -50,6 +50,9 @@ def get_hints_json_data(config):
 
     return json_data_in_file
 
+def get_debug_json_data(config):
+    pass
+
 def get_data_from_config_txt():
     from scripts.config_data import Command
 
@@ -80,6 +83,10 @@ if __name__ == "__main__":
         with open('hints_flow.json', 'w') as write_file:
             # пишим финальный вариант потока в json файл            
             json.dump(hints_nodes, write_file)
-    
+
+        debug_nodes = get_debug_json_data(config=cnf)
+        with open('debug_flow.json', 'w') as write_file:
+            # пишим финальный вариант потока в json файл            
+            json.dump(debug_nodes, write_file)
 
 print("Import generated_flow.json in node-red")
