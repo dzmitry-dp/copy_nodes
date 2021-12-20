@@ -247,7 +247,7 @@ class NodeTemplate:
 class Nodes(NodeTemplate):
     def __init__(self, name: str, config) -> None:
         super().__init__(name, config.HINTS_1, config.HINTS_2)
-        self.config = config
+        # self.config = config
         self._btn = None
         self._hints = None
         self._in_kill_python3 = None
@@ -274,7 +274,6 @@ class Nodes(NodeTemplate):
         return [*first_raw, *second_raw]
 
     def _get_first_row_hints_json(self):
-        # self.in_kill_python3['links'].append(self.link_out['id'])
         self.hint_btn['wires'].append([self.link_out['id'], self.check_lang['id']])
         self.check_lang['wires'].append([self.delay['id']])
         self.delay['wires'].append([self.mp3_win['id']])
@@ -290,7 +289,6 @@ class Nodes(NodeTemplate):
         ]
 
     def _get_second_row_hints_json(self):
-        # self.in_kill_python3['links'].append(self.link_out_['id'])
         self.hint_btn_['wires'].append([self.link_out_['id'], self.check_lang_['id']])
         self.check_lang_['wires'].append([self.delay_['id']])
         self.delay_['wires'].append([self.mp3_win_['id']])
@@ -320,6 +318,7 @@ class Nodes(NodeTemplate):
 
 
 class ConfigNodes():
+    "Конфигурационный объект"
     def __init__(self, config) -> None:
         self._project = None
         self._group = None

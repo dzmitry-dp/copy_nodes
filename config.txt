@@ -39,3 +39,45 @@ Presentation 1
 Presentation 2
 
 ###
+MQTT_NAME
+###
+192.168.20.60
+
+###
+MQTT_CLIENT
+###
+main;main
+client_62;box
+client_63;lamp
+client_64;book
+
+###
+COMMANDS
+###
+#define LOCK_DOOR_ENTRANCE_1_ON	    		345
+#define LOCK_DOOR_ENTRANCE_1_OFF	    	346
+#define LOCK_DOOR_ENTRANCE_2_ON          	347
+#define LOCK_DOOR_ENTRANCE_2_OFF         	348
+#define LOCK_PASSAGE_1_ON       			349
+#define LOCK_PASSAGE_1_OFF      			350
+#define LOCK_PASSAGE_2_ON					351
+#define LOCK_PASSAGE_2_OFF					352
+#define LOCK_LUKE_ON	    				353
+#define LOCK_LUKE_OFF		    			354
+#define LOCK_EXIT_DOOR_ON					355
+#define LOCK_EXIT_DOOR_OFF					356
+
+#define SMOKE_MACHINE_POWER_ON              357
+#define SMOKE_MACHINE_POWER_OFF             358
+#define SMOKE_MACHINE_VALVE_ON              359
+#define SMOKE_MACHINE_VALVE_OFF             360
+#define CLIMATE_POWER_ON                    361
+#define CLIMATE_POWER_OFF                   362
+#define CLIMATE_SPEED_ON                    363
+#define CLIMATE_SPEED_OFF                   364
+#define RESERVE_1_ON                        365
+#define RESERVE_1_OFF                       366
+#define RESERVE_2_ON                        367
+#define RESERVE_2_OFF                       368
+
+###
