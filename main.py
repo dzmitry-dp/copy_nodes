@@ -1,5 +1,11 @@
 import json
 
+def format_result_list(list_in_list) -> list:
+        result_list = []
+        for _list in list_in_list:
+            for item in _list:
+                result_list.append(item)
+        return result_list
 
 def get_hints_json_data(config):
     # print('Hints_1:\n', config.HINTS_1)
@@ -26,12 +32,12 @@ def get_hints_json_data(config):
         # добавляем id в общий список тех кто ссылается на вход input ноды
         id_list.append(nodes.nodes_id_in_python_kill)
 
-    def format_result_list(list_in_list) -> list:
-        result_list = []
-        for _list in list_in_list:
-            for item in _list:
-                result_list.append(item)
-        return result_list
+    # def format_result_list(list_in_list) -> list:
+    #     result_list = []
+    #     for _list in list_in_list:
+    #         for item in _list:
+    #             result_list.append(item)
+    #     return result_list
 
     # подготавливаем данные для записи в файл. Распаковываем списки
     json_data_in_file = format_result_list(result_nodes_json_list)
@@ -46,7 +52,21 @@ def get_hints_json_data(config):
     return json_data_in_file
 
 def get_debug_json_data(config):
-    pass
+    from scripts.debug import LinkState
+    
+    i = 0
+    result_nodes_json_list = []
+    for client in config.MQTT_CLIENTS:
+        client_name = client
+        client_lable = config.MQTT_CLIENTS[client]
+
+        client_link_state = LinkState(i, client_name, client_lable)
+        result_nodes_json_list.append(client_link_state.json_nodes)
+        i += 1
+
+    # подготавливаем данные для записи в файл. Распаковываем списки
+    json_data_in_file = format_result_list(result_nodes_json_list)
+    return json_data_in_file
 
 def get_data_from_config_txt():
     from scripts.config_data import Command

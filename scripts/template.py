@@ -1,13 +1,13 @@
 class NodeTemplate:
-    def _link_in(self, __index):
+    def _link_in(self, __index, x=35, y=380):
         return {
                 "id": f"3ca965f.4ce{__index}9a",
                 "type": "link in",
                 "z": "8389bbf5.5d9f78",
                 "name": "",
                 "links": [],
-                "x": 35,
-                "y": 380 + 200*__index,
+                "x": x,
+                "y": y + 200*__index,
                 "wires": []
             }
 
@@ -74,7 +74,7 @@ class NodeTemplate:
                         "wires": []
                     }
 
-    def _link_out(self, __index):
+    def _link_out(self, __index, x=495, y=180):
         return {
                         "id": f"c7ac71ba.89f{__index}",
                         "type": "link out",
@@ -83,8 +83,8 @@ class NodeTemplate:
                         "links": [
                             "1f1f3cbf.8a3e93"
                         ],
-                        "x": 495,
-                        "y": 180 + 200*__index,
+                        "x": x,
+                        "y": y + 200*__index,
                         "wires": []
                     }
 
@@ -136,7 +136,7 @@ class NodeTemplate:
                         "wires": []
                     }
 
-        # вторая строка
+    # вторая строка
     
     def _hint_btn_(self, __index, _name_hint_2):
         return {
@@ -168,9 +168,7 @@ class NodeTemplate:
                     "type": "link out",
                     "z": "8389bbf5.5d9f78",
                     "name": "",
-                    "links": [
-                        "1f1f3cbf.8a3e93"
-                    ],
+                    "links": [],
                     "x": 495,
                     "y": 340 + 200*__index,
                     "wires": []
@@ -263,9 +261,9 @@ class NodeTemplate:
 
     #debug console
     
-    def _inject(self):
+    def _inject(self, __index):
         return {
-                    "id": "9c687140.2d607",
+                    "id": f"9c687140.2d{__index}7",
                     "type": "inject",
                     "z": "f7c5b52b.d0b038",
                     "name": "",
@@ -277,17 +275,13 @@ class NodeTemplate:
                     "payload": "30",
                     "payloadType": "str",
                     "x": 350,
-                    "y": 1120,
-                    "wires": [
-                        [
-                            "56c91654.ef91c8"
-                        ]
-                    ]
+                    "y": 1120 + 200*__index,
+                    "wires": []
                 }
 
-    def _random_delay(self):
+    def _random_delay(self, __index):
         return {
-                    "id": "56c91654.ef91c8",
+                    "id": f"56c91654.ef9{__index}8",
                     "type": "delay",
                     "z": "f7c5b52b.d0b038",
                     "name": "",
@@ -303,53 +297,44 @@ class NodeTemplate:
                     "drop": False,
                     "outputs": 1,
                     "x": 600,
-                    "y": 1120,
-                    "wires": [
-                        [
-                            "cd6524b7.f117a8",
-                            "3b978cd5.fa4c44"
-                        ]
-                    ]
+                    "y": 1120 + 200*__index,
+                    "wires": []
                 }
 
-    def _mqtt_out(self):
+    def _mqtt_out(self, __index, client_name):
         return {
-                    "id": "cd6524b7.f117a8",
+                    "id": f"cd6524b7.f117a{__index}",
                     "type": "mqtt out",
                     "z": "f7c5b52b.d0b038",
                     "name": "",
-                    "topic": "/main_sub",
+                    "topic": f"/{client_name}_sub",
                     "qos": "0",
                     "retain": "false",
                     "broker": "d8344fb8.abc2d",
                     "x": 910,
-                    "y": 1120,
+                    "y": 1120 + 200*__index,
                     "wires": []
                 }
 
-    def _mqtt_in(self):
+    def _mqtt_in(self, __index, client_name):
         return {
-                "id": "95eb414.1442ec",
+                "id": f"95eb414.1442e{__index}",
                 "type": "mqtt in",
                 "z": "f7c5b52b.d0b038",
                 "name": "",
-                "topic": "/main_pub",
+                "topic": f"/{client_name}_pub",
                 "qos": "0",
                 "datatype": "auto",
                 "broker": "d8344fb8.abc2d",
                 "inputs": 0,
                 "x": 340,
-                "y": 1220,
-                "wires": [
-                    [
-                        "d164a84f.5b9208"
-                    ]
-                ]
+                "y": 1220 + 200*__index,
+                "wires": []
             }
 
-    def _delay_300ms(self):
+    def _delay_300ms(self, __index):
         return {
-                "id": "d164a84f.5b9208",
+                "id": f"d164a84f.5b920{__index}",
                 "type": "delay",
                 "z": "f7c5b52b.d0b038",
                 "name": "",
@@ -365,17 +350,13 @@ class NodeTemplate:
                 "drop": False,
                 "outputs": 1,
                 "x": 690,
-                "y": 1220,
-                "wires": [
-                    [
-                        "3b978cd5.fa4c44"
-                    ]
-                ]
+                "y": 1220 + 200*__index,
+                "wires": []
             }
 
-    def _check_link(self):
+    def _check_link(self, __index):
         return {
-                "id": "3b978cd5.fa4c44",
+                "id": f"3b978cd5.fa4c4{__index}",
                 "type": "function",
                 "z": "f7c5b52b.d0b038",
                 "name": "check_link_m",
@@ -383,37 +364,31 @@ class NodeTemplate:
                 "outputs": 1,
                 "noerr": 0,
                 "x": 920,
-                "y": 1220,
-                "wires": [
-                    [
-                        "ad2209c.aa751f8",
-                        "4e867014.108b2",
-                        "ce8f75e1.1addc8"
-                    ]
-                ]
+                "y": 1220 + 200*__index,
+                "wires": []
             }
 
-    def _link_state(self):
+    def _link_state(self, __index, client_name, client_lable):
         return {
-                "id": "ad2209c.aa751f8",
+                "id": f"ad2209c.aa751f{__index}",
                 "type": "ui_text",
                 "z": "f7c5b52b.d0b038",
-                "group": "e6f2d0f6.b5846",
+                "group": "",
                 "order": 2,
                 "width": 7,
                 "height": 1,
-                "name": "link state main",
+                "name": f"link state: {client_name}({client_lable})",
                 "label": "main: ",
                 "format": "msg.text",
                 "layout": "row-right",
                 "x": 1140,
-                "y": 1200,
+                "y": 1200 + 200*__index,
                 "wires": []
             }
 
-    def _swith(self):
+    def _swith(self, __index):
         return {
-                "id": "4e867014.108b2",
+                "id": f"4e867014.108b2{__index}",
                 "type": "ui_switch",
                 "z": "f7c5b52b.d0b038",
                 "name": "",
@@ -436,10 +411,8 @@ class NodeTemplate:
                 "officon": "fa-unlink fa-2x",
                 "offcolor": "orangered",
                 "x": 1110,
-                "y": 1240,
-                "wires": [
-                    []
-                ]
+                "y": 1240 + 200*__index,
+                "wires": []
             }
  
 
