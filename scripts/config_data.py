@@ -45,7 +45,17 @@ class Command:
                     for command in commands_list:
                         if command != '\n':
                             r = command.replace('#define ', '').replace(' ', '').replace('\t', '').replace('\n', '')
-                            self.comands[r[:-3]] = r[-3:]
+
+                            name = r[:-3].replace('_ON', '').replace('_OFF', '')
+                            if self.comands.get(name, 'new') == 'new':
+                                self.comands[name] = {}
+
+                            if r[:-3][-3:] == '_ON':
+                                self.comands[name.replace('_ON', '')]['ON'] = r[-3:]
+
+                            if r[:-3][-3:] == 'OFF':
+                                self.comands[name.replace('_OFF', '')]['OFF'] = r[-3:]
+                                
                         
     def _return_index_from_list(self):
         "Возвращаю список индексов где строки равны '###\\n' из списка lines"

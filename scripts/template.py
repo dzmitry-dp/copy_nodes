@@ -80,9 +80,7 @@ class NodeTemplate:
                         "type": "link out",
                         "z": "8389bbf5.5d9f78",
                         "name": "",
-                        "links": [
-                            "1f1f3cbf.8a3e93"
-                        ],
+                        "links": [],
                         "x": x,
                         "y": y + 200*__index,
                         "wires": []
@@ -225,7 +223,6 @@ class NodeTemplate:
             }
 
     # остальные ноды
-
     def _kill_python3_(self):
         return {
                 "id": "f68cbe37b16123a",
@@ -260,7 +257,6 @@ class NodeTemplate:
             }
 
     #debug console
-    
     def _inject(self, __index):
         return {
                     "id": f"9c687140.2d{__index}7",
@@ -275,7 +271,7 @@ class NodeTemplate:
                     "payload": "30",
                     "payloadType": "str",
                     "x": 350,
-                    "y": 1120 + 200*__index,
+                    "y": 820 + 200*__index,
                     "wires": []
                 }
 
@@ -297,7 +293,7 @@ class NodeTemplate:
                     "drop": False,
                     "outputs": 1,
                     "x": 600,
-                    "y": 1120 + 200*__index,
+                    "y": 820 + 200*__index,
                     "wires": []
                 }
 
@@ -310,9 +306,9 @@ class NodeTemplate:
                     "topic": f"/{client_name}_sub",
                     "qos": "0",
                     "retain": "false",
-                    "broker": "d8344fb8.abc2d",
+                    "broker": "",
                     "x": 910,
-                    "y": 1120 + 200*__index,
+                    "y": 820 + 200*__index,
                     "wires": []
                 }
 
@@ -325,10 +321,10 @@ class NodeTemplate:
                 "topic": f"/{client_name}_pub",
                 "qos": "0",
                 "datatype": "auto",
-                "broker": "d8344fb8.abc2d",
+                "broker": "",
                 "inputs": 0,
                 "x": 340,
-                "y": 1220 + 200*__index,
+                "y": 920 + 200*__index,
                 "wires": []
             }
 
@@ -350,7 +346,7 @@ class NodeTemplate:
                 "drop": False,
                 "outputs": 1,
                 "x": 690,
-                "y": 1220 + 200*__index,
+                "y": 920 + 200*__index,
                 "wires": []
             }
 
@@ -364,7 +360,7 @@ class NodeTemplate:
                 "outputs": 1,
                 "noerr": 0,
                 "x": 920,
-                "y": 1220 + 200*__index,
+                "y": 920 + 200*__index,
                 "wires": []
             }
 
@@ -382,11 +378,11 @@ class NodeTemplate:
                 "format": "msg.text",
                 "layout": "row-right",
                 "x": 1140,
-                "y": 1200 + 200*__index,
+                "y": 900 + 200*__index,
                 "wires": []
             }
 
-    def _swith(self, __index):
+    def _link_state_swith(self, __index):
         return {
                 "id": f"4e867014.108b2{__index}",
                 "type": "ui_switch",
@@ -394,7 +390,7 @@ class NodeTemplate:
                 "name": "",
                 "label": "link m",
                 "tooltip": "",
-                "group": "e6f2d0f6.b5846",
+                "group": "",
                 "order": 3,
                 "width": 1,
                 "height": 1,
@@ -411,11 +407,72 @@ class NodeTemplate:
                 "officon": "fa-unlink fa-2x",
                 "offcolor": "orangered",
                 "x": 1110,
-                "y": 1240 + 200*__index,
+                "y": 940 + 200*__index,
                 "wires": []
             }
- 
 
+    # lock
+    def _main_callback_pub(self):
+        return {
+                "id": "1fb8c0ec.ce05721",
+                "type": "mqtt in",
+                "z": "f7c5b52b.d0b038",
+                "name": "",
+                "topic": "/main_callback_pub",
+                "qos": "0",
+                "datatype": "auto",
+                "broker": "",
+                "inputs": 0,
+                "x": 350,
+                "y": 300,
+                "wires": []
+            }
+
+    def _lock_swith (self, __index, _label, _on, _off):
+        return {
+                "id": f"1a60ee47.9453{__index}",
+                "type": "ui_switch",
+                "z": "f7c5b52b.d0b038",
+                "name": "",
+                "label": f"{_label.replace('_ON', '').replace('_OFF', '')}",
+                "tooltip": "",
+                "group": "",
+                "order": 4,
+                "width": 0,
+                "height": 0,
+                "passthru": False,
+                "decouple": "true",
+                "topic": "",
+                "style": "",
+                "onvalue": f"{_on}",
+                "onvalueType": "str",
+                "onicon": "fa-lock fa-2x",
+                "oncolor": "olivedrab",
+                "offvalue": f"{_off}",
+                "offvalueType": "str",
+                "officon": "fa-unlock fa-2x",
+                "offcolor": "orangered",
+                "x": 700,
+                "y": 60 + 50*__index,
+                "wires": []
+            }
+
+    def _main_sub(self):
+        return {
+                "id": "fdb4fb1b.238cc81",
+                "type": "mqtt out",
+                "z": "f7c5b52b.d0b038",
+                "name": "",
+                "topic": "/main_sub",
+                "qos": "0",
+                "retain": "false",
+                "broker": "",
+                "x": 1200,
+                "y": 300,
+                "wires": []
+            }
+
+    
 class ConfigNodes:
     "Конфигурационный объект"
         # json для групп и таблиц dashboard
@@ -442,7 +499,7 @@ class ConfigNodes:
                 "collapse": True
             }
 
-    def _mqtt_global(self):
+    def _mqtt_broker(self):
         return {
                 "id": "d8344fb8.abc2d",
                 "type": "mqtt-broker",

@@ -1,11 +1,11 @@
 import json
 
 def format_result_list(list_in_list) -> list:
-        result_list = []
-        for _list in list_in_list:
-            for item in _list:
-                result_list.append(item)
-        return result_list
+    result_list = []
+    for _list in list_in_list:
+        for item in _list:
+            result_list.append(item)
+    return result_list
 
 def get_hints_json_data(config):
     # print('Hints_1:\n', config.HINTS_1)
@@ -52,9 +52,9 @@ def get_hints_json_data(config):
     return json_data_in_file
 
 def get_debug_json_data(config):
-    from scripts.debug import LinkState
+    from scripts.debug import LinkState, Lock
     
-    i = 0
+    i = 0 # для уникальных id
     result_nodes_json_list = []
     for client in config.MQTT_CLIENTS:
         client_name = client
@@ -63,6 +63,9 @@ def get_debug_json_data(config):
         client_link_state = LinkState(i, client_name, client_lable)
         result_nodes_json_list.append(client_link_state.json_nodes)
         i += 1
+
+    lock_swith = Lock(config.COMMANDS)
+    result_nodes_json_list.append(lock_swith.json_nodes)
 
     # подготавливаем данные для записи в файл. Распаковываем списки
     json_data_in_file = format_result_list(result_nodes_json_list)
