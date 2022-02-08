@@ -21,3 +21,18 @@
     - hint_2\n
     - ...
     - ###\n
+- Область MQTT_NAME
+    - ###\n
+    - 192.168.0.110
+    - ###\n
+
+- Область MQTT_CLIENT
+    - ###\n
+    - client_112;book
+    - ###\n
+
+- Облась COMMANDS
+    - ###\n
+    - #define *name*_OFF          		    340
+    - #define *name*_ON       	    	    341
+    - ###\n
