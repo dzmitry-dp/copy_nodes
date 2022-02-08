@@ -19,10 +19,12 @@ def get_hints_json_data(config):
     from scripts.hints import Hints
         
     result_nodes_json_list = []
-    id_list = [] # список id нод link out, которые пойдут на ноду "python3 /media/pi/MP3/kill_talk.py"
+    id_list_in_python3_kill_talk = [] # список id нод link out, которые пойдут на ноду "python3 /media/pi/MP3/kill_talk.py"
+    id_list_in_set_btn_text = []
 
     for hint in config.HINTS_1:
         nodes = Hints(name=hint, config=config)
+        # print(nodes.input_to_set_btn_text)
         _json_list = [
             *nodes.btn,
             *nodes.hints,
@@ -30,22 +32,18 @@ def get_hints_json_data(config):
         # повторяемые объекты потока добавляем в общий список
         result_nodes_json_list.append(_json_list)
         # добавляем id в общий список тех кто ссылается на вход input ноды
-        id_list.append(nodes.nodes_id_in_python_kill)
-
-    # def format_result_list(list_in_list) -> list:
-    #     result_list = []
-    #     for _list in list_in_list:
-    #         for item in _list:
-    #             result_list.append(item)
-    #     return result_list
+        id_list_in_python3_kill_talk.append(nodes.nodes_id_in_python_kill)
+        id_list_in_set_btn_text.append(nodes.nodes_id_set_btn_text)
 
     # подготавливаем данные для записи в файл. Распаковываем списки
     json_data_in_file = format_result_list(result_nodes_json_list)
 
-    # специально для потока hints
-    # форматируем список списков и для списка id
-    id_in_python_kill = format_result_list(id_list)
+    # специально для потока hints ноды кототые не повторяются
+    id_in_python_kill = format_result_list(id_list_in_python3_kill_talk)
     nodes.input_python_kill['links'] = id_in_python_kill # записываю все id нод, которые ссылаются на input ноду, которая стартует код python3 
+    id_in_set_btn_text = format_result_list(id_list_in_set_btn_text)
+    nodes.inpt_node['wires'] = [id_in_set_btn_text]
+    json_data_in_file.append(nodes.inpt_node)
     json_data_in_file.append(nodes.input_python_kill)
     json_data_in_file.append(nodes.kill_talk)
 
@@ -82,29 +80,23 @@ def get_data_from_config_txt():
 if __name__ == "__main__":
     import scripts.cnf as cnf
 
-    if cnf.HINTS_1 != []:
-        hints_nodes = get_hints_json_data(config=cnf)
-        with open('hints_flow.json', 'w') as write_file:
-            # пишим финальный вариант потока в json файл            
-            json.dump(hints_nodes, write_file)
+    
+    cmd_obj = get_data_from_config_txt()
 
-    else:
-        cmd_obj = get_data_from_config_txt()
+    cnf.HINTS_1 = cmd_obj.hints_1
+    cnf.HINTS_2 = cmd_obj.hints_2
+    cnf.MQTT_NAME = cmd_obj.mqtt_name
+    cnf.MQTT_CLIENTS = cmd_obj.mqtt_clients
+    cnf.COMMANDS = cmd_obj.comands
+    
+    hints_nodes = get_hints_json_data(config=cnf)
+    with open('hints_flow.json', 'w') as write_file:
+        # пишим финальный вариант потока в json файл            
+        json.dump(hints_nodes, write_file)
 
-        cnf.HINTS_1 = cmd_obj.hints_1
-        cnf.HINTS_2 = cmd_obj.hints_2
-        cnf.MQTT_NAME = cmd_obj.mqtt_name
-        cnf.MQTT_CLIENTS = cmd_obj.mqtt_clients
-        cnf.COMMANDS = cmd_obj.comands
-        
-        hints_nodes = get_hints_json_data(config=cnf)
-        with open('hints_flow.json', 'w') as write_file:
-            # пишим финальный вариант потока в json файл            
-            json.dump(hints_nodes, write_file)
-
-        debug_nodes = get_debug_json_data(config=cnf)
-        with open('debug_flow.json', 'w') as write_file:
-            # пишим финальный вариант потока в json файл            
-            json.dump(debug_nodes, write_file)
+    debug_nodes = get_debug_json_data(config=cnf)
+    with open('debug_flow.json', 'w') as write_file:
+        # пишим финальный вариант потока в json файл            
+        json.dump(debug_nodes, write_file)
 
 print("Import generated_flow.json in node-red")

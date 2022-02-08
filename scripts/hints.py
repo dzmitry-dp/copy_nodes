@@ -10,23 +10,32 @@ class Hints(NodeTemplate):
         self.__index = config.HINTS_1.index(self._name_hint_1) # порядковый номер
         self._name_hint_2 = config.HINTS_2[self.__index] # такой же по счету элемент, как и в 1м списке
 
+        self._inpt_node = None
         self._btn = None
         self._hints = None
         self._in_kill_python3 = None
         self._kill_python3 = None
 
         self.nodes_id_in_python_kill = [] # ноды которые будут ссылаться на input ноду на python скрипт
+        self.nodes_id_set_btn_text = [] # id нод на который заходит input
+
+    @property
+    def inpt_node(self):
+        if self._inpt_node is None:
+            _link_in = self._link_in(0) # т.к. нода должна быть одна, то даю произвольный idx=0
+            self._inpt_node = _link_in
+        return self._inpt_node
 
     @property
     def btn(self):
         if self._btn == None:
-            _link_in = self._link_in(self.__index)
+            # _link_in = self._link_in(self.__index)
             set_btn_text = self._set_btn_text(self.__index, self._name_hint_1)
-            _link_in['wires'].append([set_btn_text['id']])
+            self.nodes_id_set_btn_text.append(set_btn_text['id'])
             main_logo = self._main_logo(self.__index, self._name_hint_1)
             set_btn_text['wires'].append([main_logo['id']])
             self._btn = [
-                _link_in,
+                # _link_in,
                 set_btn_text,
                 main_logo,
                 ]
@@ -81,7 +90,6 @@ class Hints(NodeTemplate):
             mp3_win,
         ]
     
-
     @property
     def input_python_kill(self):
         if self._in_kill_python3 == None:

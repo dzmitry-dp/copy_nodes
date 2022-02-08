@@ -1,83 +1,72 @@
 ###
 Hints
 ###
-Main logo 1
-Main logo 2
-Competition logo 1
-Competition logo 2
-Saw 1
-Saw 2
-Posters 1
-Posters 2
-Sausages 1
-Sausages 2
-Grinder 1
-Grinder 2
-Aprons 1
-Aprons 2
-Steaks 1
-Steaks 2
-Choice cuts 1
-Choice cuts 2
-Skin 1
-Skin 2
-Fingers 1
-Fingers 2
-Eyes 1
-Eyes 2
-Guillotine 1
-Guillotine 2
-Oven 1
-Oven 2
-Tenderized 1
-Tenderized 2
-Knives 1
-Knives 2
+Two letters 1
+Two letters 2
+Chains  1
+Chains  2
+Shed box 1
+Shed box 2
+Tool 1
+Tool 2
+Safety regulations 1
+Safety regulations 2
+Four by four 1
+Four by four 2
+Tongue 1
+Tongue 2
+Self-harm 1
+Self-harm 2
+Pill Shakers 1
+Pill Shakers 2
+Dolls 1
+Dolls 2
+Magnets 1
+Magnets 2
+Cross 1
+Cross 2
+Heart 1
+Heart 2
+Teenager posters 1
+Teenager posters 2
+Phone 1
+Phone 2
+UV 1
+UV 2
+House Model 1
+House Model 2
+Missing posters 1
+Missing posters 2
+Ritual book 1
+Ritual book 2
+Scroll 1
+Scroll 2
 Skull 1
 Skull 2
-Presentation 1
-Presentation 2
 
 ###
 MQTT_NAME
 ###
-192.168.20.60
+192.168.0.110
 
 ###
 MQTT_CLIENT
 ###
-main;main
-client_62;box
-client_63;lamp
-client_64;book
+client_112;book
+client_113;voice box
 
 ###
 COMMANDS
 ###
-#define LOCK_DOOR_ENTRANCE_1_ON	    		345
-#define LOCK_DOOR_ENTRANCE_1_OFF	    	346
-#define LOCK_DOOR_ENTRANCE_2_ON          	347
-#define LOCK_DOOR_ENTRANCE_2_OFF         	348
-#define LOCK_PASSAGE_1_ON       			349
-#define LOCK_PASSAGE_1_OFF      			350
-#define LOCK_PASSAGE_2_ON					351
-#define LOCK_PASSAGE_2_OFF					352
-#define LOCK_LUKE_ON	    				353
-#define LOCK_LUKE_OFF		    			354
-#define LOCK_EXIT_DOOR_ON					355
-#define LOCK_EXIT_DOOR_OFF					356
-
-#define SMOKE_MACHINE_POWER_ON              357
-#define SMOKE_MACHINE_POWER_OFF             358
-#define SMOKE_MACHINE_VALVE_ON              359
-#define SMOKE_MACHINE_VALVE_OFF             360
-#define CLIMATE_POWER_ON                    361
-#define CLIMATE_POWER_OFF                   362
-#define CLIMATE_SPEED_ON                    363
-#define CLIMATE_SPEED_OFF                   364
-#define RESERVE_1_ON                        365
-#define RESERVE_1_OFF                       366
-#define RESERVE_2_ON                        367
-#define RESERVE_2_OFF                       368
+#define ENTRANCE_OFF          		    340
+#define ENTRANCE_ON       	    	    341
+#define BOOK_OFF                 	    342
+#define BOOK_ON                    	    343
+#define RESERVE_1_OFF      				    344
+#define RESERVE_1_ON         			    345
+#define RESERVE_2_OFF      				    346
+#define RESERVE_2_ON         			    347
+#define RESERVE_3_OFF      				    348
+#define RESERVE_3_ON         			    349
 
 ###
