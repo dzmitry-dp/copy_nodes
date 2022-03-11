@@ -121,13 +121,13 @@ class NodeTemplate:
                         "wires": []
                     }
 
-    def _mp3_win(self, __index, _name_hint_1):
+    def _mp3_win(self, __index, _name_hint_1, language):
         return {
                         "id": f"5f841428.146{__index}",
                         "type": "python-function",
                         "z": "8389bbf5.5d9f78",
                         "name": "mp3_win",
-                        "func": "import os\nimport sys\nfrom subprocess import Popen\n\ntrack1 = \"/media/pi/MP3/GAME/EN/set_name.mp3\"\ntrack2 = \"/media/pi/MP3/GAME/FR/set_name.mp3\"\nif msg['lang_code'] == 1:\n    player1 = Popen(['omxplayer', track1])\nif msg['lang_code'] == 2:\n    player1 = Popen(['omxplayer', track2])".replace('set_name', str(_name_hint_1)),
+                        "func": f"import os\nimport sys\nfrom subprocess import Popen\n\ntrack1 = \"/media/pi/MP3/GAME/EN/set_name.mp3\"\ntrack2 = \"/media/pi/MP3/GAME/{language}/set_name.mp3\"\nif msg['lang_code'] == 1:\n    player1 = Popen(['omxplayer', track1])\nif msg['lang_code'] == 2:\n    player1 = Popen(['omxplayer', track2])".replace('set_name', str(_name_hint_1)),
                         "outputs": 1,
                         "x": 1040,
                         "y": 240 + 200*__index,
@@ -207,13 +207,13 @@ class NodeTemplate:
                 "wires": []
             }
 
-    def _mp3_win_(self, __index, _name_hint_2):
+    def _mp3_win_(self, __index, _name_hint_2, language):
         return {
                 "id": f"92853d2b.154{__index}",
                 "type": "python-function",
                 "z": "8389bbf5.5d9f78",
                 "name": "mp3_win",
-                "func": "import os\nimport sys\nfrom subprocess import Popen\n\ntrack1 = \"/media/pi/MP3/GAME/EN/set_name.mp3\"\ntrack2 = \"/media/pi/MP3/GAME/FR/set_name.mp3\"\nif msg['lang_code'] == 1:\n    player1 = Popen(['omxplayer', track1])\nif msg['lang_code'] == 2:\n    player1 = Popen(['omxplayer', track2])".replace('set_name', str(_name_hint_2)),
+                "func": f"import os\nimport sys\nfrom subprocess import Popen\n\ntrack1 = \"/media/pi/MP3/GAME/EN/set_name.mp3\"\ntrack2 = \"/media/pi/MP3/GAME/{language}/set_name.mp3\"\nif msg['lang_code'] == 1:\n    player1 = Popen(['omxplayer', track1])\nif msg['lang_code'] == 2:\n    player1 = Popen(['omxplayer', track2])".replace('set_name', str(_name_hint_2)),
                 "outputs": 1,
                 "x": 1040,
                 "y": 280 + 200*__index,

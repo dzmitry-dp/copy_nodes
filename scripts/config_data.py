@@ -6,6 +6,7 @@ class Command:
 
         # self.project = None
         # self.group = None
+        self.language = None
         self.hints_1 = []
         self.hints_2 = []
         self.mqtt_name = None
@@ -21,7 +22,10 @@ class Command:
 
                 # if 'Group\n' in command_line:
                 #     self.group = self._clear(self.lines[i:self.index_list[self.index_list.index(i)+1]])[0].replace('\n', '')
-                
+                if 'Language' in command_line:
+                    language = self._clear(self.lines[i:self.index_list[self.index_list.index(i)+1]])
+                    self.language = language[0].replace('\n', '')
+
                 if 'Hints\n' in command_line:
                     hints_list = self._clear(self.lines[i:self.index_list[self.index_list.index(i)+1]])
                     for item in hints_list[::2]:

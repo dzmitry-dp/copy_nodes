@@ -83,6 +83,7 @@ if __name__ == "__main__":
     
     cmd_obj = get_data_from_config_txt()
 
+    cnf.LANGUAGE = cmd_obj.language
     cnf.HINTS_1 = cmd_obj.hints_1
     cnf.HINTS_2 = cmd_obj.hints_2
     cnf.MQTT_NAME = cmd_obj.mqtt_name

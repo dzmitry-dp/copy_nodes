@@ -5,6 +5,7 @@ class Hints(NodeTemplate):
     def __init__(self, name: str, config) -> None:
         super().__init__()
 
+        self._language = config.LANGUAGE
         self._name_hint_1 = name # элемент из списка config.HINTS_1
         # Из второго списка берем имя которое соответствует порядковому номеру первого списка
         self.__index = config.HINTS_1.index(self._name_hint_1) # порядковый номер
@@ -44,16 +45,16 @@ class Hints(NodeTemplate):
     @property
     def hints(self):
         if self._hints == None:
-            first_raw = self._get_first_row_hints_json(self.__index, self._name_hint_1)
-            second_raw = self._get_second_row_hints_json(self.__index, self._name_hint_2)
+            first_raw = self._get_first_row_hints_json(self.__index, self._name_hint_1, self._language)
+            second_raw = self._get_second_row_hints_json(self.__index, self._name_hint_2, self._language)
         return [*first_raw, *second_raw]
 
-    def _get_first_row_hints_json(self, __index, hint_name):
+    def _get_first_row_hints_json(self, __index, hint_name, language):
         hint_btn = self._hint_btn(__index, hint_name)
         link_out = self._link_out(__index)
         check_lang = self._check_lang(__index)
         delay = self._delay(__index)
-        mp3_win = self._mp3_win(__index, hint_name)
+        mp3_win = self._mp3_win(__index, hint_name, language)
 
         hint_btn['wires'].append([link_out['id'], check_lang['id']])
         check_lang['wires'].append([delay['id']])
@@ -69,12 +70,12 @@ class Hints(NodeTemplate):
             mp3_win,
         ]
 
-    def _get_second_row_hints_json(self, __index, hint_name):
+    def _get_second_row_hints_json(self, __index, hint_name, language):
         hint_btn = self._hint_btn_(__index, hint_name)
         link_out = self._link_out_(__index)
         check_lang = self._check_lang_(__index)
         delay = self._delay_(__index)
-        mp3_win = self._mp3_win_(__index, hint_name)
+        mp3_win = self._mp3_win_(__index, hint_name, language)
 
         hint_btn['wires'].append([link_out['id'], check_lang['id']])
         check_lang['wires'].append([delay['id']])
