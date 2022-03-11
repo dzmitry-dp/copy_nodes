@@ -16,13 +16,12 @@ class Command:
         for i in self.index_list:
             if i > 0: # не смотрим первую строку конфига.txt
                 command_line = self.lines[self.index_list[self.index_list.index(i)-1]:i]
-
                 # if 'Project name\n' in command_line:
                 #     self.project = self._clear(self.lines[self.i:self.index_list[self.index_list.index(self.i)+1]])[0].replace('\n', '')
 
                 # if 'Group\n' in command_line:
                 #     self.group = self._clear(self.lines[i:self.index_list[self.index_list.index(i)+1]])[0].replace('\n', '')
-                if 'Language' in command_line:
+                if 'Language\n' in command_line:
                     language = self._clear(self.lines[i:self.index_list[self.index_list.index(i)+1]])
                     self.language = language[0].replace('\n', '')
 

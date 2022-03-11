@@ -79,7 +79,6 @@ def get_data_from_config_txt():
 # формируем точку входа
 if __name__ == "__main__":
     import scripts.cnf as cnf
-
     
     cmd_obj = get_data_from_config_txt()
 
