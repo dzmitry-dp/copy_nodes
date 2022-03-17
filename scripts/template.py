@@ -350,13 +350,13 @@ class NodeTemplate:
                 "wires": []
             }
 
-    def _check_link(self, __index):
+    def _check_link(self, __index, client_name):
         return {
                 "id": f"3b978cd5.fa4c4{__index}",
                 "type": "function",
                 "z": "f7c5b52b.d0b038",
-                "name": "check_link_m",
-                "func": "var link_counter_m = flow.get('link_counter_m') || 0;\n\nif(msg.payload == \"30\")\n{\n    link_counter_m = (link_counter_m < 2) ? link_counter_m + 1 : 2;\n}\n\nif(msg.payload == \"31\")\n{\n    link_counter_m = 0;\n}\n\nflow.set('link_counter_m', link_counter_m);\nmsg.link = link_counter_m;\n\nif(link_counter_m <= 1)\n{\n    msg.payload = true;\n    msg.text = \"on-line\";\n    return msg;\n}\nelse\n{\n    msg.payload = false;\n    msg.text = \"off-line\";\n    return msg;\n}\nreturn msg;",
+                "name": f"check_link_{client_name[-3:]}",
+                "func": "var link_counter_m = flow.get('link_counter_" + client_name + "') || 0;\n\nif(msg.payload == \"30\")\n{\n    link_counter_m = (link_counter_m < 2) ? link_counter_m + 1 : 2;\n}\n\nif(msg.payload == \"31\")\n{\n    link_counter_m = 0;\n}\n\nflow.set('link_counter_" + client_name + "', link_counter_m);\nmsg.link = link_counter_m;\n\nif(link_counter_m <= 1)\n{\n    msg.payload = true;\n    msg.text = \"on-line\";\n    return msg;\n}\nelse\n{\n    msg.payload = false;\n    msg.text = \"off-line\";\n    return msg;\n}\nreturn msg;",
                 "outputs": 1,
                 "noerr": 0,
                 "x": 920,

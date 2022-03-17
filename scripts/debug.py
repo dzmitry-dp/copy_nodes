@@ -16,7 +16,7 @@ class LinkState(NodeTemplate):
             inject = self._inject(self.__index)
             random_delay = self._random_delay(self.__index)
             inject['wires'].append([random_delay['id']])
-            check_link = self._check_link(self.__index)
+            check_link = self._check_link(self.__index, self.client_name)
             mqtt_out = self._mqtt_out(self.__index, self.client_name)
             random_delay['wires'].append([check_link['id'], mqtt_out['id']])
             link_state = self._link_state(self.__index, self.client_name, self.client_lable)
